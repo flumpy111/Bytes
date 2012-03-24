@@ -1,0 +1,10 @@
+name: Bytes
+author: Sabersamus
+softdepend: [ByteCraft]
+main: com.github.Sabersamus.Bytes.Bytes
+version: 1.0
+commands:
+    bytes:
+        description: interact with your wallet
+        usage: /wallet <tell/balance/give/donate>
+        aliases: wallet
