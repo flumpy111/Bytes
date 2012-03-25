@@ -1,36 +1,53 @@
 package com.github.Sabersamus.Bytes;
 
+import org.bukkit.entity.Player;
+
+
 public class API extends Bytes
 {
 	public static Bytes plugin;
+	public API(Bytes instance){
+		plugin = instance;
+	}
 
-	public int showBytes(String name){
-		if(plugin.getBytes().contains(name)){
-			int x = plugin.getBytes().getInt(name + ".money");
-			return x;
-		}else{
-		return 0;
-		}
+	/**
+	 * Gets a player balance
+	 * @param p - the player
+	 * @return - the players money
+	 */
+	public int showBytes(Player p){
+		return plugin.getBytes().getInt(p.getName() + ".money");
 	}
 	
-	public void setBytes(String name, int value){
-		if(plugin.getBytes().contains(name)){
-			plugin.getBytes().set(name + ".money", value);
+	/**
+	 * Sets a players money to a specified value
+	 * @param p the player to be chosen
+	 * @param value - the value, can not be less than zero, can be 0
+	 */
+	public void setBytes(Player p, int value){
+		if(value < 0)return;
+			plugin.getBytes().set(p.getName() + ".money", value);
 			plugin.saveBytes();
-		}
 	}
 	
-	public void substractBytes(String name, int value){
-		if(plugin.getBytes().contains(name)){
-			plugin.getBytes().set(name + ".money", plugin.getBytes().getInt(name + ".money") - value);
+	/**
+	 * Removes money from a player balance
+	 * @param p - the player selected
+	 * @param value - the money to be removed, returns if a player doesn't have that much money
+	 */
+	public void substractBytes(Player p, int value){
+		if(plugin.getBytes().getInt(p.getName() + ".money") - value < 0)return;
+			plugin.getBytes().set(p.getName() + ".money", plugin.getBytes().getInt(p.getName() + ".money") - value);
 			plugin.saveBytes();
-		}
 	}
 	
-	public void addBytes(String name, int value){
-		if(plugin.getBytes().contains(name)){
-			plugin.getBytes().set(name + ".money", plugin.getBytes().getInt(name + ".money") + value);
+	/**
+	 * Adds money to a player balance
+	 * @param p - the player
+	 * @param value - the money to be added
+	 */
+	public void addBytes(Player p, int value){
+			plugin.getBytes().set(p.getName() + ".money", plugin.getBytes().getInt(p.getName() + ".money") + value);
 			plugin.saveBytes();
-		}
 	}
 }

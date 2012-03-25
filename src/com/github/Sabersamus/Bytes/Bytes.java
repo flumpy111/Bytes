@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -92,32 +91,6 @@ public class Bytes extends JavaPlugin
 	}
 	
 	public API getApi(){
-		return new API();
-	}
-	
-	public int showBytes(Player name){
-		this.log.info("all clear");
-		return getBytes().getInt(name.getName() + ".money");
-	}
-	
-	public void setBytes(String name, int value){
-		if(getBytes().contains(name)){
-			getBytes().set(name + ".money", value);
-			saveBytes();
-		}
-	}
-	
-	public void substractBytes(String name, int value){
-		if(getBytes().contains(name)){
-			getBytes().set(name + ".money", getBytes().getInt(name + ".money") - value);
-			saveBytes();
-		}
-	}
-	
-	public void addBytes(String name, int value){
-		if(getBytes().contains(name)){
-			getBytes().set(name + ".money", getBytes().getInt(name + ".money") + value);
-			saveBytes();
-		}
+		return new API(this);
 	}
 }
