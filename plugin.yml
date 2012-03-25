@@ -6,5 +6,9 @@ version: 1.0
 commands:
     bytes:
         description: interact with your wallet
-        usage: /wallet <tell/balance/give/donate>
+        usage: |
+            /<command> tell
+            /<command> balance
+            /<command> give [player] [amount]
+            /<command> donate [player] [amount]
         aliases: wallet

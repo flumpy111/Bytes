@@ -13,14 +13,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.Sabersamus.Bytes.Commands.ByteCommand;
-import com.github.Sabersamus.Bytes.Listeners.ButtonListener;
 import com.github.Sabersamus.Bytes.Listeners.PlayerJoin;
 
 public class Bytes extends JavaPlugin 
 {
 	Logger log = Logger.getLogger("Minecraft");
 	private final PlayerJoin playerJoin = new PlayerJoin(this);
-	private final ButtonListener blist = new ButtonListener(this);
 	public FileConfiguration bytes = null;
 	File bytesFile = null;
 	
@@ -37,7 +35,6 @@ public class Bytes extends JavaPlugin
 	{
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.playerJoin, this);
-		pm.registerEvents(this.blist, this);
 		this.registerCommands(this);
 		loadBytes();
 		Plugin bytecraft = this.getServer().getPluginManager().getPlugin("ByteCraft");
@@ -63,18 +60,18 @@ public class Bytes extends JavaPlugin
 	}
 
 	public void reloadBytes() {
-			if (bytesFile == null) {
-			bytesFile = new File(getDataFolder(), "Balance.yml");
-			}
-			bytes = YamlConfiguration.loadConfiguration(bytesFile);
-			 
-			InputStream defConfigStream = getResource("Balance.yml");
-			if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration
-			.loadConfiguration(defConfigStream);
-			bytes.setDefaults(defConfig);
-			}
-			}
+		if (bytesFile == null) {
+		bytesFile = new File(getDataFolder(), "Balance.yml");
+		}
+		bytes = YamlConfiguration.loadConfiguration(bytesFile);
+
+		InputStream defConfigStream = getResource("Balance.yml");
+if (defConfigStream != null) {
+	YamlConfiguration defConfig = YamlConfiguration
+.loadConfiguration(defConfigStream);
+	bytes.setDefaults(defConfig);
+}
+}
 	
 
 	public void saveBytes() {
@@ -90,7 +87,12 @@ public class Bytes extends JavaPlugin
 		}
 	}
 	
-	public API getApi(){
+	/**
+	 * Get the methods in the API class
+	 * @return - the class API
+	 */
+	public API getApi()
+	{
 		return new API(this);
 	}
 }

@@ -15,14 +15,14 @@ public class PlayerJoin implements Listener
 		plugin = instance;
 	}
 	
+	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent ev)
 	{
 		Player player = ev.getPlayer();
 		String name = player.getName();
-		if(!(plugin.getBytes().contains(name))){
+		if(!plugin.getBytes().contains(name)){
 		plugin.getBytes().set(name + ".money", 1000);
-		plugin.getBytes().isInt(name + ".money");
 		plugin.saveBytes();
 		}else{
 			int x = plugin.getBytes().getInt(name + ".money");

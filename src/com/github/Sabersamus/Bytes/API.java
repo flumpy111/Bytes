@@ -3,7 +3,7 @@ package com.github.Sabersamus.Bytes;
 import org.bukkit.entity.Player;
 
 
-public class API extends Bytes
+public class API
 {
 	public static Bytes plugin;
 	public API(Bytes instance){
@@ -37,6 +37,12 @@ public class API extends Bytes
 	 */
 	public void substractBytes(Player p, int value){
 		if(plugin.getBytes().getInt(p.getName() + ".money") - value < 0)return;
+		if(!plugin.getBytes().contains(p.getName())){
+			if(1000 - value >= 0){
+			plugin.getBytes().set(p.getName() + ".money", 1000 - value);
+			plugin.saveBytes();
+			}
+		}
 			plugin.getBytes().set(p.getName() + ".money", plugin.getBytes().getInt(p.getName() + ".money") - value);
 			plugin.saveBytes();
 	}
@@ -47,6 +53,10 @@ public class API extends Bytes
 	 * @param value - the money to be added
 	 */
 	public void addBytes(Player p, int value){
+		if(!plugin.getBytes().contains(p.getName())){
+			plugin.getBytes().set(p.getName() + ".money", value);
+			plugin.saveBytes();
+		}
 			plugin.getBytes().set(p.getName() + ".money", plugin.getBytes().getInt(p.getName() + ".money") + value);
 			plugin.saveBytes();
 	}
